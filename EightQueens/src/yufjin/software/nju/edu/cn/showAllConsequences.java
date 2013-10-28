@@ -11,7 +11,7 @@ public class showAllConsequences {
 		severalQueens(queenNum);
 	}
 	
-	public static void severalQueens(int num) {
+	public static void severalQueens(int num) {//start
 		int[][] chessboard = new int[num][num];
 		int queenCounter = 0;
 		
