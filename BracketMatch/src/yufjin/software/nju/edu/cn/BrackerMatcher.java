@@ -6,11 +6,11 @@ public class BrackerMatcher {
 	public static void main(String[] args) {// 1 means left bracket, -1 means right bracket
 		// TODO Auto-generated method stub
 		long starttime = System.currentTimeMillis();
-		int n = 12;
+		int n = 15;
 		int[] bracket= new int[2*n];
 		bracketMatch(n,0,bracket);
 		long endtime = System.currentTimeMillis();
-		System.out.println("the function runs " + (endtime-starttime) + "ms");
+		System.out.println("the function to match "+ n + " pairs of bracket runs " + (endtime-starttime) + "ms with "+ counter + " answers");
 	}
 	
 	
@@ -21,24 +21,26 @@ public class BrackerMatcher {
 		}
 		if(i == 2*n) {
 			if(isSafe(bracket,i)){
-				printBrakcet(bracket);
+				counter++;
+			//	printBrakcet(bracket);
 			}
 		}
 		else {
 			bracket[i] = 1;
 			if(isSafe(bracket,i)){
-				bracketMatch(n, i+1, bracket.clone());
+				bracketMatch(n, i+1, bracket);
 			}
 			
 			bracket[i] = -1;
 			if(isSafe(bracket,i)){
-				bracketMatch(n, i+1, bracket.clone());
+				bracketMatch(n, i+1, bracket);
 			}
 			
 		}
 		
 	}
 	
+	//verify if current bracket from 0
 	public static boolean isSafe(int[] bracket,int i) {
 		int left = leftBracketSum(bracket,i);
 		int right = rightBracketSum(bracket,i);
@@ -68,8 +70,8 @@ public class BrackerMatcher {
 	
 	public static int rightBracketSum(int[] bracket,int i) {
 		int sum = 0;
-		for(int n:bracket) {
-			if(n==-1){
+		for(int l=0;l<i;l++) {
+			if(bracket[l]==-1){
 				sum++;
 			}
 		}
