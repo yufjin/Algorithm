@@ -1,10 +1,162 @@
 package model;
 
-public class SudokuModel {
-	int [][] sukodu = new int[9][9];
-	
-	//init the 
-	public void sukoduInit(){
+import java.util.ArrayList;
+
+public class SudokuModel implements ISudokuModel{
+	private int [][] model = new int[9][9];
+	private int [][] answer = new int[9][9];
+
+	@Override
+	public int[][] getModel() {
+		// TODO Auto-generated method stub
+		return this.model;
+	}
+
+	@Override
+	public void setModel(int[][] modelArchetype) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<modelArchetype.length;i++){
+			for(int j=0;j<modelArchetype.length;j++){
+				this.model[i][j] = modelArchetype[i][j];
+			}
+		}
+	}
+
+	@Override
+	public void modelInit() {
+		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void puzzleCreate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int answerCalculate() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean hasUniqueAnswer() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isRightNumber(int i,int j) {
+		// TODO Auto-generated method stub
+		if(this.answer[i][j]==this.model[i][j]){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isSafe(int i,int j) {
+		// TODO Auto-generated method stub
+		if(rowCheck(i, j) && columnCheck(i, j) && cubeCheck(i, j)){
+			return true;
+		}else{
+			return false;
+		}	
+	}
+
+	@Override
+	public boolean rowCheck(int i,int j) {
+		// TODO Auto-generated method stub
+		for(int n=0;n<this.model.length;n++){
+			if(this.model[i][n] == this.model[i][j] && n!=j){
+				System.out.println("rowCheck returns false");
+				return false;
+			}
+		}
+		System.out.println("rowCheck returns true");
+		return true;
+	}
+
+	@Override
+	public boolean columnCheck(int i,int j) {
+		// TODO Auto-generated method stub
+		for(int n=0;n<this.model.length;n++){
+			if(this.model[n][j] == this.model[i][j] && n!= i){
+				System.out.println("columnCheck returns false");
+				return false;
+			}
+		}
+		System.out.println("columnCheck returns true");
+		return true;
+	}
+
+	@Override
+	public boolean cubeCheck(int i,int j) {
+		// TODO Auto-generated method stub
+		int offsetI = i/3;
+		int offsetJ = j/3;
+		for(int m=offsetI*3;m<offsetI+3;m++){
+			for(int n=offsetJ*3;n<offsetJ+3;n++){
+				if(this.model[m][n] == this.model[i][j] && !(m==i && n==j)){
+					System.out.println("cubeCheck returns false");
+					return false;
+				}
+			}
+		}
+		System.out.println("cubeCheck returns true");
+		return true;
+	}
+
+	@Override
+	public ArrayList<String> showAllPossibilities(int n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void showModel() {
+		// TODO Auto-generated method stub
+		System.out.print("=========================================");
+		for(int i=0;i<this.model.length;i++){
+			System.out.println("");
+			for(int j=0;j<this.model.length;j++){
+				if(this.model[i][j]!=0){
+					System.out.print(" "+this.model[i][j]+"  ");
+				}else{
+					System.out.print("[ ] ");
+				}if(j==2 || j==5){
+					System.out.print("| ");
+				}
+				
+			}
+			System.out.println("");
+			if(i==2 || i==5){
+				System.out.println("-----------------------------------------");
+			}
+		}
+		System.out.println("=========================================");
+	}
+
+	@Override
+	public void setValue(int i, int j, int value) {
+		// TODO Auto-generated method stub
+		this.model[i][j] = value;
+		
+	}
+
+	@Override
+	public void deleteValue(int i, int j) {
+		// TODO Auto-generated method stub
+		this.model[i][j] = 0;
+	}
+
+	@Override
+	public void Hint(int i, int j) {
+		// TODO Auto-generated method stub
+		this.model[i][j] = this.answer[i][j];
+	}
+
+	
 }
