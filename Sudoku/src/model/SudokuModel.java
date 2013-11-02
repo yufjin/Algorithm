@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class SudokuModel implements ISudokuModel{
 	private int [][] model = new int[9][9];
@@ -97,8 +98,8 @@ public class SudokuModel implements ISudokuModel{
 		// TODO Auto-generated method stub
 		int offsetI = i/3;
 		int offsetJ = j/3;
-		for(int m=offsetI*3;m<offsetI+3;m++){
-			for(int n=offsetJ*3;n<offsetJ+3;n++){
+		for(int m=offsetI*3;m<offsetI*3+3;m++){
+			for(int n=offsetJ*3;n<offsetJ*3+3;n++){
 				if(this.model[m][n] == this.model[i][j] && !(m==i && n==j)){
 					System.out.println("cubeCheck returns false");
 					return false;
@@ -110,9 +111,41 @@ public class SudokuModel implements ISudokuModel{
 	}
 
 	@Override
-	public ArrayList<String> showAllPossibilities(int n) {
+	public int[] showAllPossibilities(int i,int j) {
 		// TODO Auto-generated method stub
-		return null;
+		int[] possibilites = {1,2,3,4,5,6,7,8,9};
+		HashSet<Integer> conflictset = new HashSet<Integer>();
+		for(int m=0;m<this.model.length;m++){
+			conflictset.add(this.model[i][m]);
+		}
+		for(int n=0;n<this.model.length;n++){
+			conflictset.add(this.model[n][j]);
+		}
+		int offsetI = i/3;
+		int offsetJ = j/3;
+		for(int m=offsetI*3;m<offsetI*3+3;m++){
+			
+			for(int n=offsetJ*3;n<offsetJ*3+3;n++){
+				conflictset.add(this.model[m][n]);
+			}
+		}
+		for(int p=0;p<possibilites.length;p++){
+			if(conflictset.contains(possibilites[p])){
+				possibilites[p] = 0;
+			}
+		}
+		//notice that the conflict always has a dirty data of 0, so the size needs to -1
+		int[] poss = new int[possibilites.length - (conflictset.size() - 1)]; 
+		int index = 0;
+		for(int p=0;p<possibilites.length;p++){
+			if(possibilites[p]!=0) {
+				poss[index] = possibilites[p];
+				System.out.print(poss[index]+" ");
+				index++;
+				
+			}
+		}
+		return poss;
 	}
 
 	@Override
