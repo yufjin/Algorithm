@@ -140,7 +140,7 @@ public class SudokuModel implements ISudokuModel{
 		for(int p=0;p<possibilites.length;p++){
 			if(possibilites[p]!=0) {
 				poss[index] = possibilites[p];
-				System.out.print(poss[index]+" ");
+			//	System.out.print(poss[index]+" ");
 				index++;
 				
 			}
