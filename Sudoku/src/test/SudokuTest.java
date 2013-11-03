@@ -1,5 +1,7 @@
 package test;
 
+import view.ISudokuView;
+import view.SudokuView;
 import model.ISudokuModel;
 import model.SudokuModel;
 
@@ -7,13 +9,19 @@ public class SudokuTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ISudokuModel sudoku =new SudokuModel();
-		sudoku.setModel(createArchetype());
-		
-		//sudoku.setValue(7, 7, 1);
-		sudoku.showModel();
-		//boolean flag = sudoku.isSafe(7, 7);
-		sudoku.showAllPossibilities(8, 8);
+		ISudokuModel sudokumodel =new SudokuModel();
+		ISudokuView sudokuview = new SudokuView();
+		sudokumodel.setModel(createArchetype());
+		for(int i=0;i<9;i++){
+	    	for(int j=0;j<9;j++){
+	    		if(sudokumodel.getModel()[i][j] != 0){
+	    			sudokuview.setDefaultValue(i, j, sudokumodel.getModel()[i][j]);
+	    		}else{
+	    			sudokuview.setPossibilities(i, j, sudokumodel.showAllPossibilities(i, j));
+	    		}
+	    	}
+		}
+
 	}
 	
 	public static int[][] createArchetype(){
