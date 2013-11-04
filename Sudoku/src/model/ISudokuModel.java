@@ -18,5 +18,6 @@ public interface ISudokuModel {
 	public void setValue(int i,int j,int value);
 	public void deleteValue(int i,int j);
 	public void Hint(int i,int j);
+	public void updatePossibilities(int i,int j);//after set value, the possibilities of related cell should be update
 	
 }

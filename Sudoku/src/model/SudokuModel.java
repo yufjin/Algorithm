@@ -134,18 +134,8 @@ public class SudokuModel implements ISudokuModel{
 				possibilites[p] = 0;
 			}
 		}
-		//notice that the conflict always has a dirty data of 0, so the size needs to -1
-		int[] poss = new int[possibilites.length - (conflictset.size() - 1)]; 
-		int index = 0;
-		for(int p=0;p<possibilites.length;p++){
-			if(possibilites[p]!=0) {
-				poss[index] = possibilites[p];
-			//	System.out.print(poss[index]+" ");
-				index++;
-				
-			}
-		}
-		return poss;
+		
+		return possibilites;
 	}
 
 	@Override
@@ -189,6 +179,14 @@ public class SudokuModel implements ISudokuModel{
 	public void Hint(int i, int j) {
 		// TODO Auto-generated method stub
 		this.model[i][j] = this.answer[i][j];
+	}
+
+	@Override
+	public void updatePossibilities(int i, int j) {
+		// TODO Auto-generated method stub
+		if(isSafe(i, j)){
+			
+		}
 	}
 
 	
