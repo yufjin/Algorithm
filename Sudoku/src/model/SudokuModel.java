@@ -38,6 +38,16 @@ public class SudokuModel implements ISudokuModel{
 	@Override
 	public int answerCalculate() {
 		// TODO Auto-generated method stub
+		ArrayList<Integer[]> puzzlecell = new ArrayList<Integer[]>(); //record all the puzzle cell for recall
+		for(int m=0;m<this.model.length;m++){
+			for(int n=0;n<this.model.length;n++){
+				if(this.model[m][n] == 0){
+					Integer[] index = {Integer.valueOf(m),Integer.valueOf(n)};
+					puzzlecell.add(index);
+				}
+			}
+		}
+		
 		return 0;
 	}
 

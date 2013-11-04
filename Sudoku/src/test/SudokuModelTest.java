@@ -11,7 +11,8 @@ public class SudokuModelTest {
 		sudoku.setModel(createArchetype());
 		
 		sudoku.showModel();
-		for(int i=0;i<9;i++){
+		sudoku.answerCalculate();
+		/*for(int i=0;i<9;i++){
 			for(int j=0;j<9;j++){
 				if(sudoku.getModel()[i][j] ==0){
 					System.out.print("all possibilities of["+i+"]["+j+"] is:");
@@ -19,7 +20,7 @@ public class SudokuModelTest {
 					System.out.println("");
 				}
 			}
-		}
+		}*/
 		
 	}
 	
