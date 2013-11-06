@@ -1,7 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+
+import sun.beans.editors.IntEditor;
 
 public class SudokuModel implements ISudokuModel{
 	private int [][] model = new int[9][9];
@@ -36,25 +39,60 @@ public class SudokuModel implements ISudokuModel{
 	}
 
 	@Override
-	public int answerCalculate() {
+	public ArrayList<Integer[]> answerCalculate() {
 		// TODO Auto-generated method stub
-		ArrayList<Integer[]> puzzlecell = new ArrayList<Integer[]>(); //record all the puzzle cell for recall
+		ArrayList<Integer[]> cell = new ArrayList<Integer[]>(); //record all the puzzle cell for recall
 		for(int m=0;m<this.model.length;m++){
 			for(int n=0;n<this.model.length;n++){
 				if(this.model[m][n] == 0){
 					Integer[] index = {Integer.valueOf(m),Integer.valueOf(n)};
-					puzzlecell.add(index);
+					cell.add(index);
 				}
 			}
 		}
+		ArrayList<Integer[]> answers = new ArrayList<Integer[]>();//record answers
+		int a = 0;
+		while(a < cell.size() && a>=0) {
+			int i = cell.get(a)[0];
+			int j = cell.get(a)[1];
+			if(this.model[i][j] >=0 && this.model[i][j]<9){//go through from 1 to 9
+				this.model[i][j]++;
+				if(!isSafe(i, j)){//not safe, go back
+
+				}else if(a != cell.size()-1){//have noe finished yet
+					a++;
+				}else{//I don't whether it works well
+					Integer[] temp = new Integer[cell.size()];
+					int x = 0;
+					for(Integer[] index:cell){
+						temp[x] = this.model[index[0]][index[1]];
+						x++;
+					}
+					answers.add(temp);//add the current answer to the arraylist
+				}
+			}else if(this.model[i][j] == 9){
+				this.model[i][j] = 0;
+				a--;
+			}
+			
+		}
+		for(Integer[] answer:answers){
+			for(Integer an:answer){
+				System.out.print(an+" ");
+			}
+		}
 		
-		return 0;
+		return answers;
 	}
 
 	@Override
 	public boolean hasUniqueAnswer() {
 		// TODO Auto-generated method stub
-		return false;
+		if(answerCalculate().size() == 1){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	@Override
@@ -82,11 +120,11 @@ public class SudokuModel implements ISudokuModel{
 		// TODO Auto-generated method stub
 		for(int n=0;n<this.model.length;n++){
 			if(this.model[i][n] == this.model[i][j] && n!=j){
-				System.out.println("rowCheck returns false");
+				//System.out.println("rowCheck returns false");
 				return false;
 			}
 		}
-		System.out.println("rowCheck returns true");
+		//System.out.println("rowCheck returns true");
 		return true;
 	}
 
@@ -95,11 +133,11 @@ public class SudokuModel implements ISudokuModel{
 		// TODO Auto-generated method stub
 		for(int n=0;n<this.model.length;n++){
 			if(this.model[n][j] == this.model[i][j] && n!= i){
-				System.out.println("columnCheck returns false");
+				//System.out.println("columnCheck returns false");
 				return false;
 			}
 		}
-		System.out.println("columnCheck returns true");
+		//System.out.println("columnCheck returns true");
 		return true;
 	}
 
@@ -111,12 +149,12 @@ public class SudokuModel implements ISudokuModel{
 		for(int m=offsetI*3;m<offsetI*3+3;m++){
 			for(int n=offsetJ*3;n<offsetJ*3+3;n++){
 				if(this.model[m][n] == this.model[i][j] && !(m==i && n==j)){
-					System.out.println("cubeCheck returns false");
+					//System.out.println("cubeCheck returns false");
 					return false;
 				}
 			}
 		}
-		System.out.println("cubeCheck returns true");
+		//System.out.println("cubeCheck returns true");
 		return true;
 	}
 

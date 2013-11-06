@@ -1,12 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+
 
 public interface ISudokuModel {
 	public int[][] getModel();
 	public void setModel(int[][] modelArchetype);
 	public void modelInit();
 	public void puzzleCreate();
-	public int answerCalculate();
+	public ArrayList<Integer[]> answerCalculate();
 	public boolean hasUniqueAnswer();
 	public boolean isRightNumber(int i,int j);
 	public boolean isSafe(int i,int j);
