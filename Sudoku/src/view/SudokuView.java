@@ -83,7 +83,8 @@ public class SudokuView implements ISudokuView{
 	
 	
 	public void viewInit(){
-		view.setBounds(100, 100, 485, 507);
+		view.setBounds(100, 100, 475, 498);
+		view.setResizable(false);
 		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    view.setVisible(true);
 	    Container container = view.getContentPane();
