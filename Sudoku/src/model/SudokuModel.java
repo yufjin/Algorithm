@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-
 import java.util.HashSet;
 
 
@@ -18,6 +17,11 @@ public class SudokuModel implements ISudokuModel{
 										{8,9,7,1,3,4,6,2,5},//7
 										{2,5,6,8,7,9,3,1,4}};//8
 
+	public SudokuModel(){
+		answerInit();
+		puzzleProducer();
+	}
+	
 	@Override
 	public int[][] getModel() {
 		// TODO Auto-generated method stub
@@ -121,7 +125,19 @@ public class SudokuModel implements ISudokuModel{
 	@Override
 	public void puzzleCreate() {
 		// TODO Auto-generated method stub
-		
+		int puzzlenum = 40+(int)(Math.random()*20);//determine how many cells should be removed
+		for(int k=0;k<9;k++){
+			for(int l=0;l<9;l++){
+				this.model[k][l] = this.answer[k][l];
+			}
+		}
+		while(puzzlenum>0){
+			int indexnum = (int)(Math.random()*81);//select an index -random
+			if(this.model[indexnum/9][indexnum%9]!=0){
+				this.model[indexnum/9][indexnum%9] = 0;
+				puzzlenum--;
+			}
+		}
 	}
 
 	@Override
@@ -282,29 +298,7 @@ public class SudokuModel implements ISudokuModel{
 		return poss;
 	}
 
-	@Override
-	public void showCells(int[][] cells) {
-		// TODO Auto-generated method stub
-		System.out.print("=========================================");
-		for(int i=0;i<9;i++){
-			System.out.println("");
-			for(int j=0;j<9;j++){
-				if(cells[i][j]!=0){
-					System.out.print(" "+cells[i][j]+"  ");
-				}else{
-					System.out.print("[ ] ");
-				}if(j==2 || j==5){
-					System.out.print("| ");
-				}
-				
-			}
-			System.out.println("");
-			if(i==2 || i==5){
-				System.out.println("-----------------------------------------");
-			}
-		}
-		System.out.println("=========================================");
-	}
+
 
 	@Override
 	public void setValue(int i, int j, int value) {
@@ -343,6 +337,15 @@ public class SudokuModel implements ISudokuModel{
 	public int[][] getPuzzle() {
 		// TODO Auto-generated method stub
 		return this.puzzleoriginal;
+	}
+
+	@Override
+	public void puzzleProducer() {
+		// TODO Auto-generated method stub
+		puzzleCreate();
+		while(!hasUniqueAnswer()){
+			puzzleCreate();
+		}
 	}
 
 	

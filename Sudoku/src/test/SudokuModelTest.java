@@ -12,10 +12,9 @@ public class SudokuModelTest {
 		
 		//sudoku.showCells(sudoku.getModel());
 		//sudoku.answerCalculate();
-		sudoku.answerInit();
-		sudoku.showCells(sudoku.getPuzzle());
-		sudoku.showCells(sudoku.getAnswer());
-		
+		showCells(sudoku.getAnswer());
+		showCells(sudoku.getPuzzle());
+		showCells(sudoku.getModel());
 		/*for(int i=0;i<9;i++){
 			for(int j=0;j<9;j++){
 				if(sudoku.getModel()[i][j] ==0){
@@ -71,6 +70,29 @@ public class SudokuModelTest {
 		modelArchetype[8][5] = 3;
 		modelArchetype[8][8] = 2;
 		return modelArchetype;
+	}
+	
+	public static void showCells(int[][] cells) {
+		// TODO Auto-generated method stub
+		System.out.print("=========================================");
+		for(int i=0;i<9;i++){
+			System.out.println("");
+			for(int j=0;j<9;j++){
+				if(cells[i][j]!=0){
+					System.out.print(" "+cells[i][j]+"  ");
+				}else{
+					System.out.print("[ ] ");
+				}if(j==2 || j==5){
+					System.out.print("| ");
+				}
+				
+			}
+			System.out.println("");
+			if(i==2 || i==5){
+				System.out.println("-----------------------------------------");
+			}
+		}
+		System.out.println("=========================================");
 	}
 
 }
