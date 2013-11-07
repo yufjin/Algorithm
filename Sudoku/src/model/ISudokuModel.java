@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public interface ISudokuModel {
 	public int[][] getModel();
 	public void setModel(int[][] modelArchetype);
-	public void modelInit();
+	public void answerInit();
 	public void puzzleCreate();
 	public ArrayList<Integer[]> answerCalculate();
 	public boolean hasUniqueAnswer();
@@ -16,10 +16,11 @@ public interface ISudokuModel {
 	public boolean columnCheck(int i,int j);
 	public boolean cubeCheck(int i,int j);
 	public int[] showAllPossibilities(int i,int j);//return all the index of special number
-	public void showModel();
+	public void showCells(int[][] cells);
 	public void setValue(int i,int j,int value);
 	public void deleteValue(int i,int j);
 	public void Hint(int i,int j);
 	public void updatePossibilities(int i,int j);//after set value, the possibilities of related cell should be update
-	
+	public int[][] getAnswer();
+	public int[][] getPuzzle();
 }

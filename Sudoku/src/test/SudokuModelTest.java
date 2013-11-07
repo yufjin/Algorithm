@@ -8,10 +8,14 @@ public class SudokuModelTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ISudokuModel sudoku =new SudokuModel();
-		sudoku.setModel(createArchetype());
+		//sudoku.setModel(createArchetype());
 		
-		sudoku.showModel();
-		sudoku.answerCalculate();
+		//sudoku.showCells(sudoku.getModel());
+		//sudoku.answerCalculate();
+		sudoku.answerInit();
+		sudoku.showCells(sudoku.getPuzzle());
+		sudoku.showCells(sudoku.getAnswer());
+		
 		/*for(int i=0;i<9;i++){
 			for(int j=0;j<9;j++){
 				if(sudoku.getModel()[i][j] ==0){

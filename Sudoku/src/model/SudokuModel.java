@@ -1,14 +1,22 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.HashSet;
 
-import sun.beans.editors.IntEditor;
 
 public class SudokuModel implements ISudokuModel{
 	private int [][] model = new int[9][9];
 	private int [][] answer = new int[9][9];
+	private int [][] puzzleoriginal = {{3,8,1,4,6,7,2,5,9},//0
+										{6,2,4,5,9,8,1,7,3},//1
+										{9,7,5,2,1,3,4,8,6},//2
+										{7,4,9,3,8,1,5,6,2},//3
+										{5,3,8,7,2,6,9,4,1},//4
+										{1,6,2,9,4,5,8,3,7},//5
+										{4,1,3,6,5,2,7,9,8},//6
+										{8,9,7,1,3,4,6,2,5},//7
+										{2,5,6,8,7,9,3,1,4}};//8
 
 	@Override
 	public int[][] getModel() {
@@ -27,11 +35,89 @@ public class SudokuModel implements ISudokuModel{
 	}
 
 	@Override
-	public void modelInit() {
+	public void answerInit() {
 		// TODO Auto-generated method stub
-		
+		//don't want to switch directly on the puzzle original array
+		for(int k=0;k<9;k++){
+			for(int l=0;l<9;l++){
+				this.answer[k][l] = this.puzzleoriginal[k][l];
+			}
+		}
+		for(int m=0;m<3;m++){ //for 3 rows, there are 6 possibilities of combination totally
+			int flag = (int)(Math.random()*6);
+			switch(flag){
+			case 0:
+				break;
+			case 1:
+				switchRow(m*3+1,m*3+2);
+				break;
+			case 2:
+				switchRow(m*3, m*3+1);
+				switchRow(m*3, m*3+2);
+				break;
+			case 3:
+				switchRow(m*3,m*3+2);
+				break;
+			case 4:
+				switchRow(m*3,m*3+1);
+				break;
+			case 5:
+				switchRow(m*3, m*3+1);
+				switchRow(m*3+1, m*3+2);
+				break;
+			default:
+				break;
+				
+			}
+		}
+		for(int m=0;m<3;m++){ //for 3 rows, there are 6 possibilities of combination totally
+			int flag = (int)(Math.random()*6);
+			switch(flag){
+			case 0:
+				break;
+			case 1:
+				switchColumn(m*3+1,m*3+2);
+				break;
+			case 2:
+				switchColumn(m*3, m*3+1);
+				switchColumn(m*3, m*3+2);
+				break;
+			case 3:
+				switchColumn(m*3,m*3+2);
+				break;
+			case 4:
+				switchColumn(m*3,m*3+1);
+				break;
+			case 5:
+				switchColumn(m*3, m*3+1);
+				switchColumn(m*3+1, m*3+2);
+				break;
+			default:
+				break;
+			}
+			
+		}
 	}
-
+	
+	
+	public void switchRow(int i,int j){
+		int temp;
+		for(int m=0;m<this.model.length;m++){
+			temp = this.answer[i][m];
+			this.answer[i][m] = this.answer[j][m];
+			this.answer[j][m] = temp;
+		}
+	}
+	
+	public void switchColumn(int i,int j){
+		int temp;
+		for(int m=0;m<this.model.length;m++){
+			temp = this.answer[m][i];
+			this.answer[m][i] = this.answer[m][j];
+			this.answer[m][j] = temp;
+		}
+	}
+	
 	@Override
 	public void puzzleCreate() {
 		// TODO Auto-generated method stub
@@ -61,7 +147,7 @@ public class SudokuModel implements ISudokuModel{
 
 				}else if(a != cell.size()-1){//have noe finished yet
 					a++;
-				}else{//I don't whether it works well
+				}else{//I don't know whether it works well
 					Integer[] temp = new Integer[cell.size()];
 					int x = 0;
 					for(Integer[] index:cell){
@@ -197,14 +283,14 @@ public class SudokuModel implements ISudokuModel{
 	}
 
 	@Override
-	public void showModel() {
+	public void showCells(int[][] cells) {
 		// TODO Auto-generated method stub
 		System.out.print("=========================================");
-		for(int i=0;i<this.model.length;i++){
+		for(int i=0;i<9;i++){
 			System.out.println("");
-			for(int j=0;j<this.model.length;j++){
-				if(this.model[i][j]!=0){
-					System.out.print(" "+this.model[i][j]+"  ");
+			for(int j=0;j<9;j++){
+				if(cells[i][j]!=0){
+					System.out.print(" "+cells[i][j]+"  ");
 				}else{
 					System.out.print("[ ] ");
 				}if(j==2 || j==5){
@@ -245,6 +331,18 @@ public class SudokuModel implements ISudokuModel{
 		if(isSafe(i, j)){
 			
 		}
+	}
+
+	@Override
+	public int[][] getAnswer() {
+		// TODO Auto-generated method stub
+		return this.answer;
+	}
+
+	@Override
+	public int[][] getPuzzle() {
+		// TODO Auto-generated method stub
+		return this.puzzleoriginal;
 	}
 
 	
