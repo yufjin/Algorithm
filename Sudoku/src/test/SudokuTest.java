@@ -11,7 +11,7 @@ public class SudokuTest {
 		// TODO Auto-generated method stub
 		ISudokuModel sudokumodel =new SudokuModel();
 		ISudokuView sudokuview = new SudokuView();
-		sudokumodel.setModel(createArchetype());
+		//sudokumodel.setModel(createArchetype());
 		for(int i=0;i<9;i++){
 	    	for(int j=0;j<9;j++){
 	    		if(sudokumodel.getModel()[i][j] != 0){

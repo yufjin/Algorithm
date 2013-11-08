@@ -13,69 +13,37 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 
 public class SudokuView implements ISudokuView{
 	private JFrame view = new JFrame("Sudoku");
 	private JTextField[][] cells = new JTextField[9][9];
-	private MouseListener inputlistener= new cellListener();
-	public class cellListener implements MouseListener{
+	private DocumentListener inputlistener= new cellListener();
+	public class cellListener implements DocumentListener{
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			JTextField cell = (JTextField)e.getSource();
-			cell.setFont(new Font("Arial", Font.PLAIN, 30));
-			cell.setText(null);
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
+		public void insertUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
-		public void mouseReleased(MouseEvent e) {
+		public void removeUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {
+		public void changedUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
 		
 	}
 	
-	public class valuelistener implements KeyListener{
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
 	
 	public SudokuView(){
 		viewInit();
@@ -98,7 +66,7 @@ public class SudokuView implements ISudokuView{
 	    }
 		for(int i=0;i<9;i++){
 	    	for(int j=0;j<9;j++){
-	    		cells[i][j].addMouseListener(inputlistener);
+	    		cells[i][j].getDocument().addDocumentListener(inputlistener);
 	    		cells[i][j].setHorizontalAlignment(JTextField.CENTER);
 	    		cells[i][j].setBounds(j*52+2, i*52+2, 50, 50);
 	    		if((i/3+j/3)%2 == 0){
@@ -117,7 +85,7 @@ public class SudokuView implements ISudokuView{
 		cells[i][j].setFont(new Font("Arial", Font.PLAIN, 30));
 		cells[i][j].setText(String.valueOf(value));
 		cells[i][j].setDisabledTextColor(new Color(205,92,92));
-		cells[i][j].removeMouseListener(inputlistener);
+		cells[i][j].getDocument().removeDocumentListener(inputlistener);
 		cells[i][j].disable();
 	}
 
